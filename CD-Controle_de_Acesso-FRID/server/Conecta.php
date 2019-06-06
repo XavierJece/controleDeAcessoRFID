@@ -9,16 +9,16 @@ class Conecta extends Config{
     /*Constructor */
     function __construct(){
         $this->pdo = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db, $this->user, $this->pass, 
-        array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
     }
 
 
 
     /*My functions*/
 
-    function select($condicao){
+    function select(){
         $stmt = $this->pdo->prepare("SELECT * FROM  WHERE tipo = :a ORDER BY  `data` desc");
-        $stmt->bindValue(":a", $condicao);
+        $stmt->bindValue(":a", $tipo);
         $run = $stmt->execute();
 
         $lista = array();
@@ -29,5 +29,15 @@ class Conecta extends Config{
         return $lista;
     }
 
+    function insert(){
+        $idMorador = 1;
+        
+        $stmt = $this->pdo->prepare("INSERT INTO `tb_historico`(`idMorador_historico`) VALUES (:idMorador)");
+        $stmt->bindValue(":idMorador", $idMorador);
+        $run = $stmt->execute();
+
+    }
+
 
 }
+?>
